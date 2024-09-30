@@ -43,12 +43,13 @@ function getCurrentTime() {
 setInterval(getCurrentTime, 1000)
 
 navigator.geolocation.getCurrentPosition(async position => {
-    const res = await fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
-    if (!res.ok) {
+    try{
+       const res = await fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
+       if (!res.ok) {
         throw Error("Weather data not available")
     }
 
-try {    
+   
     const data = await res.json()
     const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
     document.getElementById("weather").innerHTML = `
@@ -59,4 +60,4 @@ try {
 } catch (err) {
     console.error(err)
 }    
-    // .catch(err => console.error(err))
+});    
