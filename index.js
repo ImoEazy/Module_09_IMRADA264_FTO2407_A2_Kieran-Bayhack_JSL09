@@ -35,8 +35,6 @@ try{
 
 
 
-
-
 function getCurrentTime() {
     const date = new Date()
     document.getElementById("time").textContent = date.toLocaleTimeString("en-us", {timeStyle: "short"})
@@ -49,6 +47,8 @@ navigator.geolocation.getCurrentPosition(async position => {
     if (!res.ok) {
         throw Error("Weather data not available")
     }
+
+try {    
     const data = await res.json()
     const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
     document.getElementById("weather").innerHTML = `
@@ -56,5 +56,7 @@ navigator.geolocation.getCurrentPosition(async position => {
         <p class="weather-temp">${Math.round(data.main.temp)}º</p>
         <p class="weather-city">${data.name}</p>
     `
-        // .catch(err => console.error(err))
-});
+} catch (err) {
+    console.error(err)
+}    
+    // .catch(err => console.error(err))
