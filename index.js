@@ -1,7 +1,7 @@
 try{
     const res = await fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature")
     const data = await res.json()
-    document.body.style.backgroundImage = `url(${data.urls.regular})`////Purpose: Fetch a random landscape image tagged with "nature" from Unsplash.
+    document.body.style.backgroundImage = `url(${data.urls.regular})`////Purpose: Fetch a random landscape image tagged with "nature" from Unsplash API.
     document.getElementById("author").textContent = `By: ${data.user.name}`
 } catch (err) {
     document.body.style.backgroundImage = `url(https://images.unsplash.com/photo-1560008511-11c63416e52d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMTEwMjl8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjI4NDIxMTc&ixlib=rb-1.2.1&q=80&w=1080
@@ -10,6 +10,7 @@ try{
     //Error Handling: If the fetch fails, a default image and author name are used
 }
 
+   //fetch crypto dat from gecko API
 try{
     const res = await fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
     if (!res.ok) {
@@ -31,10 +32,6 @@ try{
 }
 
 
-
-
-
-
 function getCurrentTime() {//Purpose: Define a function to get the current time and update an HTML element every second.
     const date = new Date()
     document.getElementById("time").textContent = date.toLocaleTimeString("en-us", {timeStyle: "short"})
@@ -47,17 +44,17 @@ navigator.geolocation.getCurrentPosition(async position => {//Purpose: Get users
        const res = await fetch(`https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=imperial`)
        if (!res.ok) {
         throw Error("Weather data not available")
-    }
+      }
 
    
-    const data = await res.json()
-    const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`//Success: Displays the weather icon, temperature, and city name in the designated HTML elements.
-    document.getElementById("weather").innerHTML = `
+      const data = await res.json()
+      const iconUrl = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`//Success: Displays the weather icon, temperature, and city name in the designated HTML elements.
+      document.getElementById("weather").innerHTML = `
         <img src=${iconUrl} />
         <p class="weather-temp">${Math.round(data.main.temp)}º</p>
         <p class="weather-city">${data.name}</p>
     `
- } catch (err) {
+    } catch (err) {
     console.error(err)
- }    
-});    
+    }    
+});   
